@@ -15,7 +15,7 @@ class Player(commands.Cog):
             player = input.replace(" ", "%20")
             print(str(player))
             try:
-                r = requests.get("https://api.nethergames.org/?action=stats&player=" + str(player))
+                r = requests.get("https://apiv2.nethergames.org/?action=stats&player=" + str(player))
                 data = r.json
             except BaseException as e:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
