@@ -15,6 +15,8 @@ discord.py - `pip install discord.py`
 
 requests - `pip install requests`
 
+tabulate - `pip install tabulate`
+
 ## Start the Bot
 
 To start the bot, put your Discord Bot token in `config.ini` and execute `main.py`.
