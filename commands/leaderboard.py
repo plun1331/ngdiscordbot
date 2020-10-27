@@ -19,9 +19,9 @@ class LB(commands.Cog):
             print(str(leaderboard))
             try:
                 if game:
-                    r = requests.get("https://api.nethergames.org/?action=leaderboards&type=wins&game=" + game)
+                    r = requests.get("https://apiv2.nethergames.org/?action=leaderboards&type=wins&game=" + game)
                 else:
-                    r = requests.get("https://api.nethergames.org/?action=leaderboards&type=" + leaderboard)
+                    r = requests.get("https://apiv2.nethergames.org/?action=leaderboards&type=" + leaderboard)
                 data = r.json()
             except BaseException as e:
                 await ctx.send("Sorry, that leaderboard could not be loaded.")
