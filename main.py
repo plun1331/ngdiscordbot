@@ -25,7 +25,14 @@ bot.remove_command('help')
 
 initial_extensions = ['commands.player',
                       'commands.leaderboard',
-                      'commands.help']
+                      'commands.help',
+                      'commands.ping',
+                      'commands.owner.load',
+                      'commands.owner.reload',
+                      'commands.owner.stop',
+                      'commands.owner.unload',
+                      'events.cmderror',
+                      'events.ready']
 
 print(' Loading Cogs...')
 if __name__ == '__main__':
