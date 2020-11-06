@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
-import requests
-import tabulate
+from urllib.request import Request, urlopen
+import urllib
+import json
 
 class Player(commands.Cog):
 
@@ -15,11 +16,12 @@ class Player(commands.Cog):
             player = input.replace(" ", "%20")
             print(str(player))
             try:
-                r = requests.get("https://api.nethergames.org/?action=stats&player=" + str(player))
-                data = r.json
-            except BaseException as e:
+                req = Request('https://api.nethergames.org/?action=stats&player=' + str(player))
+                req.add_header('ngbot', 'https://ngmc.co')
+                content = urlopen(req)
+                data = json.load(content) 
+            except urllib.error.HTTPError:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
-
             if not data:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
             else:

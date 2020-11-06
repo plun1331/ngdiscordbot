@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
-import requests
+from urllib.request import Request, urlopen
+import urllib
+import json
 import tabulate
 
 class LB(commands.Cog):
@@ -19,13 +21,15 @@ class LB(commands.Cog):
             print(str(leaderboard))
             try:
                 if game:
-                    r = requests.get("https://api.nethergames.org/?action=leaderboards&type=wins&game=" + game)
+                    req = Request("https://api.nethergames.org/?action=leaderboards&type=wins&game=" + game)
+                    req.add_header('ngbot', 'https://ngmc.co')
                 else:
-                    r = requests.get("https://api.nethergames.org/?action=leaderboards&type=" + leaderboard)
-                data = r.json()
-            except BaseException as e:
+                    req = Request("https://api.nethergames.org/?action=leaderboards&type=" + leaderboard)
+                    req.add_header('ngbot', 'https://ngmc.co')
+                content = urlopen(req)
+                data = json.load(content) 
+            except urllib.error.HTTPError:
                 await ctx.send("Sorry, that leaderboard could not be loaded.")
-        
             if not data:
                 await ctx.send("Sorry, that leaderboard could not be loaded.")
             else:
