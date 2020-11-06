@@ -32,8 +32,6 @@ These commands are restricted to the bot's owner, in other words, whoever has ad
 
 discord.py - `pip install discord.py`
 
-requests - `pip install requests`
-
 tabulate - `pip install tabulate`
 
 ## Start the Bot
