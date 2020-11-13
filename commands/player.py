@@ -16,17 +16,14 @@ class Player(commands.Cog):
             player = input.replace(" ", "%20")
             print(str(player))
             try:
-<<<<<<< HEAD
                 req = Request('https://api.nethergames.org/?action=stats&player=' + str(player))
                 req.add_header('ngbot', 'https://ngmc.co')
                 content = urlopen(req)
                 data = json.load(content) 
             except urllib.error.HTTPError:
-=======
                 r = requests.get("https://apiv2.nethergames.org/?action=stats&player=" + str(player))
                 data = r.json
             except BaseException as e:
->>>>>>> b790e3cee301f6f2ab5f1b0993cdd271a1cb9fe4
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
             if not data:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
