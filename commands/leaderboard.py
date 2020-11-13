@@ -21,7 +21,6 @@ class LB(commands.Cog):
             print(str(leaderboard))
             try:
                 if game:
-<<<<<<< HEAD
                     req = Request("https://api.nethergames.org/?action=leaderboards&type=wins&game=" + game)
                     req.add_header('ngbot', 'https://ngmc.co')
                 else:
@@ -30,13 +29,11 @@ class LB(commands.Cog):
                 content = urlopen(req)
                 data = json.load(content) 
             except urllib.error.HTTPError:
-=======
                     r = requests.get("https://apiv2.nethergames.org/?action=leaderboards&type=wins&game=" + game)
                 else:
                     r = requests.get("https://apiv2.nethergames.org/?action=leaderboards&type=" + leaderboard)
                 data = r.json()
             except BaseException as e:
->>>>>>> b790e3cee301f6f2ab5f1b0993cdd271a1cb9fe4
                 await ctx.send("Sorry, that leaderboard could not be loaded.")
             if not data:
                 await ctx.send("Sorry, that leaderboard could not be loaded.")
