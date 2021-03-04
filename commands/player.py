@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-from urllib.request import Request, urlopen
-import urllib
+import aiohttp
 import json
 
 class Player(commands.Cog):
@@ -15,14 +14,13 @@ class Player(commands.Cog):
         if input:
             player = input.replace(" ", "%20")
             print(str(player))
+            async with aiohttp.ClientSession() as session:
             try:
-                req = Request('https://api.nethergames.org/?action=stats&player=' + str(player))
-                req.add_header('ngbot', 'https://ngmc.co')
-                content = urlopen(req)
-                data = json.load(content) 
-            except urllib.error.HTTPError:
-                r = requests.get("https://apiv2.nethergames.org/?action=stats&player=" + str(player))
-                data = r.json
+                async with session.get('https://api.nethergames.org/?action=stats&player=' + str(player)) as resp:
+                    data = await resp.json()
+            except aiohttp.ClientError:
+                async with session.get('https://apiv2.nethergames.org/?action=stats&player' + str(player)) as resp:
+                    data = await resp.json()
             except BaseException as e:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
             if not data:
