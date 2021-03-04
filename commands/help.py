@@ -13,6 +13,7 @@ class Player(commands.Cog):
         `ng!ping` - Check the bot's latency.
         `ng!leaderboard <leaderboard> [game]` - Displays the current top players on a specific leaderboard.
         `ng!player <player>` - Displays a player's statistics.""")
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Player(bot))
