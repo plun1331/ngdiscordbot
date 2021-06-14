@@ -15,14 +15,15 @@ class Player(commands.Cog):
             player = input.replace(" ", "%20")
             print(str(player))
             async with aiohttp.ClientSession() as session:
-            try:
-                async with session.get('https://api.nethergames.org/?action=stats&player=' + str(player)) as resp:
+                try:
+                    async with session.get('https://api.nethergames.org/?action=stats&player=' + str(player)) as resp:
+                        data = await resp.json()
+                except aiohttp.ClientError:
+                    async with session.get('https://apiv2.nethergames.org/?action=stats&player' + str(player)) as resp:
+                        data = await resp.json()
+                except BaseException as e:
+                    await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
                     data = await resp.json()
-            except aiohttp.ClientError:
-                async with session.get('https://apiv2.nethergames.org/?action=stats&player' + str(player)) as resp:
-                    data = await resp.json()
-            except BaseException as e:
-                await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
             if not data:
                 await ctx.send("Sorry, that player could not be found. Perhaps you made a typo?")
             else:
@@ -34,7 +35,7 @@ class Player(commands.Cog):
                 embed.add_field(name="K/DR", value=str(round(int(data["kills"]) / int(data["deaths"]), 2)), inline=True)
                 embed.add_field(name="Wins", value=str(data["wins"]), inline=True)
                 embed.add_field(name="Level", value=str(data["level"]), inline=True)
-                embed.add_field(name="Credits", value=str(data["status_credits"]), inline=True)
+                embed.add_field(name="Credits", value=str(data["statusCredits"]), inline=True)
                 if not data["rank"]:
                     data["rank"] = "Guest"
                 embed.add_field(name="Rank", value=str(data["rank"]), inline=True)
