@@ -36,8 +36,8 @@ class Player(commands.Cog):
                 embed.add_field(name="Wins", value=str(data["wins"]), inline=True)
                 embed.add_field(name="Level", value=str(data["level"]), inline=True)
                 embed.add_field(name="Credits", value=str(data["statusCredits"]), inline=True)
-                if not data["rank"]:
-                    data["rank"] = "Guest"
+                if not data["ranks"]:
+                    data["ranks"] = "Guest"
                 embed.add_field(name="Rank", value=str(data["ranks"]), inline=True)
                 if not data["tier"]:
                     data["tier"] = "No tier"
